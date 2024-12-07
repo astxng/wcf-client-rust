@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import NProgress from '@/utils/progress';
+import { fa } from 'element-plus/es/locale';
 
 export const routes = [
     {
@@ -11,6 +12,15 @@ export const routes = [
             keepAlive: true
         },
         component: () => import('@/components/Home.vue')          
+    },
+    {
+        path: '/login',
+        hidden: false,
+        name: '登录',
+        meta: {
+            keepAlive: true
+        },
+        component: () => import('@/components/Login.vue')          
     },
     {
         path: '/sql',

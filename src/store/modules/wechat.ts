@@ -5,7 +5,7 @@ import wcf_api from '~/api/wcf_api';
 export const useWechatStore = defineStore('wechat', {
     state: () => {
         return {
-            selfInfo: getSlefInfo(),
+            selfInfo: getSelfInfo(),
             isServerRunning: false,
         }
     },
@@ -14,7 +14,7 @@ export const useWechatStore = defineStore('wechat', {
             this.selfInfo = selfInfo;
             sessionStorage.setItem('selfInfo', JSON.stringify(selfInfo));
         },
-        async updateSlefInfo() {
+        async updateSelfInfo() {
             if(this.isServerRunning){
                 this.selfInfo = await wcf_api.userinfo();
                 console.log(this.selfInfo);
@@ -35,7 +35,7 @@ export const useWechatStore = defineStore('wechat', {
     },
 });
 
-const getSlefInfo = () => { 
+const getSelfInfo = () => { 
     let info = sessionStorage.getItem('selfInfo');
     if (!info) { 
         return {};

@@ -15,6 +15,8 @@ export const useConfigStore = defineStore('config', () => {
       front_msg_show: true,
       file_dir: '',
       msg_filter_regexp: '',
+      wx_id: '',
+      token: '',
     });
      
     const update = async () => {

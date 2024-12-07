@@ -3,7 +3,7 @@
 use chrono::Local;
 use handler::event_entity::Event;
 use local_ip_address::local_ip;
-use log::{info, Level, LevelFilter, Log, Metadata, Record};
+use log::{info, debug, Level, LevelFilter, Log, Metadata, Record};
 use service::global_service::{initialize_global, GLOBAL};
 use wechat_config::WechatConfig;
 use std::fs::{self, File};
@@ -91,7 +91,9 @@ fn save_wechat_config(
     wechat_config_lock.file_dir = config.file_dir.clone();
     wechat_config_lock.http_server_port = config.http_server_port.clone();
     wechat_config_lock.front_msg_show = config.front_msg_show.clone();
-    info!("Wechat configuration update {:?}", serde_json::to_string(&config));
+    wechat_config_lock.wx_id = config.wx_id.clone();
+    wechat_config_lock.token = config.token.clone();
+    debug!("Wechat configuration update {:?}", serde_json::to_string(&config));
     Ok(true)
 }
 

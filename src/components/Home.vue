@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted } from 'vue';
 import { isDark } from "@/composables";
 import { listen } from '@tauri-apps/api/event';
 import { ref } from 'vue';

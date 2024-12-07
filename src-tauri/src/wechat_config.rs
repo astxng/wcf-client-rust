@@ -14,4 +14,8 @@ pub struct WechatConfig {
     pub front_msg_show: bool,
     // 消息正则白名单过滤
     pub msg_filter_regexp: Option<String>,
+    // 当前 WxId
+    pub wx_id: String,
+    // 当前登录 Token
+    pub token: String,
 }

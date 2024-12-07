@@ -5,4 +5,6 @@ export type WechatConfig = {
     front_msg_show: boolean,
     file_dir: string;
     msg_filter_regexp: string;
+    wx_id: string,
+    token: string,
 }

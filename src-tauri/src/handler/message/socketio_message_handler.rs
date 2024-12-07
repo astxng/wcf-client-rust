@@ -3,6 +3,7 @@ use serde_json::json;
 use crate::{handler::event_entity::{Event, EventHandler}, service::global_service::GLOBAL};
 
 // 控制台日志打印
+#[allow(dead_code)]
 pub struct SocketIOMessageHandler {
     pub id: String,
 }

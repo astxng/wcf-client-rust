@@ -5,8 +5,11 @@ import { routes } from '@/router';
 import { useWechatStore } from "~/store";
 import { ElLoading, ElMessage } from "element-plus";
 import { VxeUI } from 'vxe-table'
+import { useConfigStore } from "@/store/modules/config";
 
 const wechatStore = useWechatStore();
+const configStore = useConfigStore();
+
 const activeMenu = ref<string>('/');
 
 const handleMenuItemClick = (path: string) => {
@@ -25,10 +28,13 @@ const startOrStop = async () => {
     try {
         if (wechatStore.isServerRunning) {
             await wechatStore.stop();
+            configStore.wechatConfig.wx_id = "";
+            configStore.wechatConfig.token = "";
+            await configStore.update();
         } else {
             await wechatStore.start();
             var getUserInfoTask = window.setInterval(async function logname() {
-                await wechatStore.updateSlefInfo();
+                await wechatStore.updateSelfInfo();
                 clearInterval(getUserInfoTask)
             }, 5000);
         }
@@ -46,6 +52,14 @@ onMounted(async () => {
     wechatStore.getRunningFlag();
     const path = location.hash.replace('#', '');
     activeMenu.value = path;
+})
+
+wechatStore.$subscribe((mutation, state) => {
+    if (state.selfInfo.wxid) {
+        ElMessage.info(state.selfInfo.wxid);
+        configStore.wechatConfig.wx_id = state.selfInfo.wxid;
+        configStore.update();
+    }
 })
 </script>
 
@@ -77,7 +91,7 @@ onMounted(async () => {
                 </button>
             </el-menu-item>
             <el-menu-item v-if="!!wechatStore.selfInfo.small_head_url">
-                <el-avatar shape="square" :size="36" :src="wechatStore.selfInfo.small_head_url" />
+                <el-avatar shape="square" :size="32" :src="wechatStore.selfInfo.small_head_url" />
             </el-menu-item>
         </el-menu>
     </div>
