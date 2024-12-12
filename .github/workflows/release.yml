@@ -86,7 +86,7 @@ jobs:
           version: "22.2"
 
       - name: Install Tauri CLI if not cached
-        run: cargo install tauri-cli --version ^1.0.0
+        run: C:/Users/runneradmin/.cargo/bin/cargo install tauri-cli --version ^1.0.0
         if: steps.tauri-cli-cache.outputs.cache-hit != 'true'
         env:
           PATH: C:/Users/runneradmin/.cargo/bin:${{ env.PATH }}
