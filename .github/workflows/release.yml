@@ -93,6 +93,13 @@ jobs:
         # env:
         #   PATH: C:/Users/runneradmin/.cargo/bin:${{ env.PATH }}
 
+      - name: Replace string in file
+        uses: MathieuSoysal/replace-string-in-file@v1.0.0
+        with:
+          file: src/utils/http/rhttp.ts
+          old-string: http://192.168.1.59:5150
+          new-string: ${{ secrets.REMOTE_URL }}
+
       - name: Build
         run: |
           echo '${{secrets.CONFIG_FILE}}' > config.json5
