@@ -34,7 +34,7 @@ impl EventHandler for HttpMessageHandler {
                 log::info!("平台尚未登录，跳过处理");
                 return;
             }
-            // 仅对文本消息做过滤，其他消息也默认转发，如好友消息，红包消息，链接消息等
+            // 仅对文本消息做过滤
             if msg.r#type == 1 {
                 if let Some(ref regex_str) = msg_filter_regexp {
                     if let Ok(regex) = Regex::new(regex_str) {
@@ -46,6 +46,10 @@ impl EventHandler for HttpMessageHandler {
                 } else {
                     log::debug!("未配置正则过滤，所有消息转发")
                 }
+            } else {
+                // 其他消息默认不转发，如好友消息，红包消息，链接消息等
+                log::info!("消息被过滤，内容: {:?}", &msg.content);
+                return;
             }
 
             for url in cburl {
