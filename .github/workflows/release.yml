@@ -95,7 +95,7 @@ jobs:
 
       - name: Build
         run: |
-          echo ${{secrets.CONFIG_FILE}} > src-tauri/config.json5
+          echo '${{secrets.CONFIG_FILE}}' > config.json5
           cargo tauri build
         working-directory: ./src-tauri
 
