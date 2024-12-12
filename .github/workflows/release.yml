@@ -85,12 +85,20 @@ jobs:
         with:
           version: "22.2"
 
+      - name: Show environment variable
+        run: echo ${{ env.PATH }}
+
       - name: Install Tauri CLI if not cached
-        run: C:/Users/runneradmin/.cargo/bin/cargo install tauri-cli --version ^1.0.0
+        run: |
+          echo "PATH=C:/Users/runneradmin/.cargo/bin" >> "$GITHUB_ENV"
+          C:/Users/runneradmin/.cargo/bin/cargo install tauri-cli --version ^1.0.0
         if: steps.tauri-cli-cache.outputs.cache-hit != 'true'
         env:
           PATH: C:/Users/runneradmin/.cargo/bin:${{ env.PATH }}
 
+      - name: Show environment variable 2
+        run: echo ${{ env.PATH }}
+  
       - name: Build
         run: cargo tauri build
         working-directory: ./src-tauri
