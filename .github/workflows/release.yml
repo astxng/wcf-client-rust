@@ -84,9 +84,6 @@ jobs:
         with:
           version: "22.2"
 
-      - name: Show environment variable
-        run: echo ${{ env.PATH }}
-
       - name: Install Tauri CLI if not cached
         run: cargo install tauri-cli --version ^1.0.0
         if: steps.tauri-cli-cache.outputs.cache-hit != 'true'
