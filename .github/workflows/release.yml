@@ -97,8 +97,8 @@ jobs:
         uses: MathieuSoysal/replace-string-in-file@v1.0.0
         with:
           file: src/utils/http/rhttp.ts
-          old-string: http://192.168.1.59:5150
-          new-string: ${{ secrets.REMOTE_URL }}
+          old-string: 'http://192.168.1.59:5150'
+          new-string: '${{ secrets.REMOTE_URL }}'
 
       - name: Build
         run: |
