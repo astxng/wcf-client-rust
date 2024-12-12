@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { isDark, toggleDark } from "@/composables";
 import { onMounted, ref } from "vue";
-import { routes } from '@/router';
+import { router, routes } from '@/router';
 import { useWechatStore } from "~/store";
 import { ElLoading, ElMessage } from "element-plus";
 import { VxeUI } from 'vxe-table'
@@ -21,10 +21,11 @@ const switchTheme = () => {
     toggleDark();
 }
 
+const loading = ElLoading.service({
+    text: wechatStore.isServerRunning ? '停止中...' : '启动中...'
+});
+
 const startOrStop = async () => {
-    const loading = ElLoading.service({
-        text: wechatStore.isServerRunning ? '停止中...' : '启动中...'
-    });
     try {
         if (wechatStore.isServerRunning) {
             await wechatStore.stop();
@@ -41,17 +42,18 @@ const startOrStop = async () => {
     } catch (err: any) {
         console.error(err);
         ElMessage.error(err.message || err);
-    } finally {
-        loading.close();
     }
+    //  finally {
+    //     loading.close();
+    // }
 
 }
 
 onMounted(async () => {
-    const wechatStore = useWechatStore();
-    wechatStore.getRunningFlag();
+    await wechatStore.getRunningFlag();
     const path = location.hash.replace('#', '');
     activeMenu.value = path;
+    await startOrStop();
 })
 
 wechatStore.$subscribe((mutation, state) => {
@@ -59,6 +61,9 @@ wechatStore.$subscribe((mutation, state) => {
         ElMessage.info(state.selfInfo.wxid);
         configStore.wechatConfig.wx_id = state.selfInfo.wxid;
         configStore.update();
+        loading.close();
+        activeMenu.value = "/login";
+        router.replace("/login");
     }
 })
 </script>
@@ -77,13 +82,13 @@ wechatStore.$subscribe((mutation, state) => {
                 </el-menu-item>
             </template>
             <div class="flex-grow" />
-            <el-menu-item v-ripple h="full" @click="startOrStop()">
+            <!-- <el-menu-item v-ripple h="full" @click="startOrStop()">
                 <button class="border-none w-full bg-transparent cursor-pointer"
                     style="height: var(--el-menu-item-height)">
                     <el-text type="success" v-if="!wechatStore.isServerRunning">启动</el-text>
                     <el-text type="danger" v-else>停止</el-text>
                 </button>
-            </el-menu-item>
+            </el-menu-item> -->
             <el-menu-item v-ripple h="full" @click="switchTheme()">
                 <button class="border-none w-full bg-transparent cursor-pointer"
                     style="height: var(--el-menu-item-height)">

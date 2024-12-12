@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus';
 import { rhttp } from '@/utils/http/rhttp';
-import { useWechatStore } from "@/store";
 import { useConfigStore } from "@/store/modules/config";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import { router } from "@/router";
 
 const Login = async (data: any) => {
-    return rhttp.post('/api/auth/login', {data});
+    return rhttp.post<{token: string}, any>('/api/auth/login', {data});
 }
 
-const wechatStore = useWechatStore();
 const configStore = useConfigStore();
 
 const loginModel = ref({
@@ -27,7 +26,8 @@ const submitForm = async () => {
         ElMessage({
             message: `登录成功`,
             type: 'success',
-        })
+        });
+        router.replace("/");
     } else {
         ElMessage.error('登录错误')
     }
@@ -40,7 +40,7 @@ const submitForm = async () => {
             <el-form ref="formRef" :model="loginModel" label-width="auto" class="demo-dynamic w-full">
                 <el-card class="w-full mt-4">
                     <template #header>登录</template>
-                    <el-form-item label="Email" :required>
+                    <el-form-item label="Email">
                         <el-input v-model="loginModel.email" />
                     </el-form-item>
                     <el-form-item label="密码">

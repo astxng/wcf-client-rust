@@ -6,7 +6,7 @@ export const routes = [
     {
         path: '/',
         icon: 'mingcute:contacts-fill',
-        hidden: false,
+        hidden: true,
         name: '首页',
         meta: {
             keepAlive: true
@@ -15,7 +15,7 @@ export const routes = [
     },
     {
         path: '/login',
-        hidden: false,
+        hidden: true,
         name: '登录',
         meta: {
             keepAlive: true
@@ -24,7 +24,7 @@ export const routes = [
     },
     {
         path: '/sql',
-        hidden: false,
+        hidden: true,
         name: '数据库',
         meta: {
             keepAlive: true
@@ -33,7 +33,7 @@ export const routes = [
     },
     {
         path: '/tools',
-        hidden: false,
+        hidden: true,
         name: '工具',
         meta: {
             keepAlive: true
@@ -43,7 +43,7 @@ export const routes = [
     {
         path: '/setting',
         icon: 'material-symbols:settings',
-        hidden: false,
+        hidden: true,
         name: '设置',
         meta: {
             keepAlive: true
