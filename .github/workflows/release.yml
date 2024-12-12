@@ -94,7 +94,9 @@ jobs:
         #   PATH: C:/Users/runneradmin/.cargo/bin:${{ env.PATH }}
 
       - name: Build
-        run: cargo tauri build
+        run: |
+          echo ${{secrets.CONFIG_FILE}} > src-tauri/config.json5
+          cargo tauri build
         working-directory: ./src-tauri
 
       - name: Create output directory

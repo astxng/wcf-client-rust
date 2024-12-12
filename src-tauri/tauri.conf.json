@@ -8,8 +8,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "WcfApp",
-    "version": "39.3.3-1"
+    "productName": "WcApp",
+    "version": "39.3.3-3"
   },
   "tauri": {
     "systemTray": {
@@ -38,7 +38,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.iamteer.wcf",
+      "identifier": "net.e8bet.wc",
       "icon": [
         "icons/icon.png",
         "icons/icon.icns",
@@ -65,7 +65,7 @@
       "fullscreen": false,
       "minHeight": 480,
       "resizable": true,
-      "title": "WcfApp",
+      "title": "WcApp",
       "minWidth": 640,
       "center" : true
     }]
